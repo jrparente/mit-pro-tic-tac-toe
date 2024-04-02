@@ -1,27 +1,36 @@
 const Board = () => {
   const [player, setPlayer] = React.useState(1);
+  console.log(player);
   const [gameState, setGameState] = React.useState([]);
   let status = checkForWinner(gameState);
 
-  let playerTurn = `${player == "0" ? "Player O" : "Player X"}`;
+  let playerTurn = `${player == 0 ? "Player O" : "Player X"}`;
 
   const takeTurn = (id) => {
     setGameState([...gameState, { id: id, player: player }]);
     setPlayer((player + 1) % 2); // get next player
     return player;
   };
-  function renderSquare(i) {
-    return <Square takeTurn={takeTurn} id={i} status={status}></Square>;
+  function renderSquare({ i, classNames = "" }) {
+    return (
+      <Square
+        takeTurn={takeTurn}
+        id={i}
+        status={status}
+        classNames={classNames}
+      ></Square>
+    );
   }
 
   return (
-    <>
+    <div className="container">
       <div className="info">
         <p>
           <span className="bold">Turn:</span> {playerTurn}
         </p>
         {status != "No Winner Yet" && (
           <button
+            className="reset-button"
             onClick={() => {
               setGameState([]);
               setPlayer(1);
@@ -39,32 +48,34 @@ const Board = () => {
       </div>
       <div className="game-board">
         <div className="grid-row">
-          {renderSquare(0)}
-          {renderSquare(1)}
-          {renderSquare(2)}
+          {renderSquare({ i: 0, classNames: "right-border bottom-border" })}
+          {renderSquare({ i: 1, classNames: "right-border bottom-border" })}
+          {renderSquare({ i: 2, classNames: "bottom-border" })}
         </div>
         <div className="grid-row">
-          {renderSquare(3)}
-          {renderSquare(4)}
-          {renderSquare(5)}
+          {renderSquare({ i: 3, classNames: "right-border bottom-border" })}
+          {renderSquare({ i: 4, classNames: "right-border bottom-border" })}
+          {renderSquare({ i: 5, classNames: "bottom-border" })}
         </div>
         <div className="grid-row">
-          {renderSquare(6)}
-          {renderSquare(7)}
-          {renderSquare(8)}
+          {renderSquare({ i: 6, classNames: "right-border" })}
+          {renderSquare({ i: 7, classNames: "right-border" })}
+          {renderSquare({ i: 8 })}
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
-const Square = ({ takeTurn, id, status }) => {
+const Square = ({ takeTurn, id, status, classNames = "" }) => {
   const mark = ["O", "X", ""];
   const [tik, setTik] = React.useState(2);
 
   return (
     <button
-      className={`square ${tik == "1" ? "player1" : "player2"}`}
+      className={`square ${
+        tik === 1 ? "player1" : tik === 0 ? "player2" : ""
+      } ${classNames}`}
       onClick={() => {
         setTik(takeTurn(id));
       }}
