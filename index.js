@@ -11,7 +11,7 @@ const Board = () => {
     return player;
   };
   function renderSquare(i) {
-    return <Square takeTurn={takeTurn} id={i}></Square>;
+    return <Square takeTurn={takeTurn} id={i} status={status}></Square>;
   }
 
   return (
@@ -20,6 +20,19 @@ const Board = () => {
         <p>
           <span className="bold">Turn:</span> {playerTurn}
         </p>
+        {status != "No Winner Yet" && (
+          <button
+            onClick={() => {
+              setGameState([]);
+              setPlayer(1);
+              document.querySelectorAll(".square").forEach((square) => {
+                square.innerHTML = "";
+              });
+            }}
+          >
+            New Game
+          </button>
+        )}
         <p>
           <span className="bold">Winner:</span> {status}
         </p>
@@ -45,16 +58,17 @@ const Board = () => {
   );
 };
 
-const Square = ({ takeTurn, id }) => {
+const Square = ({ takeTurn, id, status }) => {
   const mark = ["O", "X", ""];
   const [tik, setTik] = React.useState(2);
 
   return (
     <button
-      className={tik == "1" ? "player1" : "player2"}
+      className={`square ${tik == "1" ? "player1" : "player2"}`}
       onClick={() => {
         setTik(takeTurn(id));
       }}
+      disabled={status != "No Winner Yet"}
     >
       <h1>{mark[tik]}</h1>
     </button>

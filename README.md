@@ -35,8 +35,9 @@ This project is a simple Tic-Tac-Toe game built with React. It was created as pa
 
 ## Roadmap
 
-- [ ] Disable game board after a player wins
-- [ ] Add a "restart" button: when clicked, the game board should be cleared and the game should start over
+- [x] Disable game board after a player wins: once a player wins, the game board should be disabled and no further moves should be allowed
+- [ ] Make it responsive: the game board should adjust to the screen size, and it should be possible to play on a mobile device
+- [x] Add a "restart" button: when clicked, the game board should be cleared and the game should start over
 - [ ] Add a "score" feature: keep track of the number of wins for each player
 - [ ] Add a "play against the computer" feature: the computer should make random moves
 
