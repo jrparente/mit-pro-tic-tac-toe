@@ -71,7 +71,22 @@ body {
 
 .square {
     border: none;
-    font-size: 2rem
+    font-size: 2rem;
+    position: relative;
+
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+.square-hover:hover::after {
+    content: attr(data-content);
+    opacity: 0.4;
+    font-size: inherit;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 .right-border {

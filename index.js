@@ -1,6 +1,5 @@
 const Board = () => {
   const [player, setPlayer] = React.useState(1);
-  console.log(player);
   const [gameState, setGameState] = React.useState([]);
   let status = checkForWinner(gameState);
 
@@ -11,6 +10,7 @@ const Board = () => {
     setPlayer((player + 1) % 2); // get next player
     return player;
   };
+
   function renderSquare({ i, classNames = "" }) {
     return (
       <Square
@@ -18,6 +18,7 @@ const Board = () => {
         id={i}
         status={status}
         classNames={classNames}
+        player={player}
       ></Square>
     );
   }
@@ -67,19 +68,27 @@ const Board = () => {
   );
 };
 
-const Square = ({ takeTurn, id, status, classNames = "" }) => {
+const Square = ({ takeTurn, id, status, classNames = "", player }) => {
   const mark = ["O", "X", ""];
   const [tik, setTik] = React.useState(2);
+
+  const handleHover = () => {
+    if (status === "No Winner Yet" && tik === 2) {
+      return "square-hover";
+    }
+    return "";
+  };
 
   return (
     <button
       className={`square ${
         tik === 1 ? "player1" : tik === 0 ? "player2" : ""
-      } ${classNames}`}
+      } ${classNames} ${handleHover()}`}
+      disabled={status != "No Winner Yet"}
       onClick={() => {
         setTik(takeTurn(id));
       }}
-      disabled={status != "No Winner Yet"}
+      data-content={player === 0 ? "O" : "X"}
     >
       <h1>{mark[tik]}</h1>
     </button>
