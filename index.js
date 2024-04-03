@@ -79,11 +79,18 @@ const Square = ({ takeTurn, id, status, classNames = "", player }) => {
     return "";
   };
 
+  const handleDisabled = () => {
+    if (status != "No Winner Yet") {
+      return "disabled";
+    }
+    return "";
+  };
+
   return (
     <button
       className={`square ${
         tik === 1 ? "player1" : tik === 0 ? "player2" : ""
-      } ${classNames} ${handleHover()}`}
+      } ${classNames} ${handleHover()} ${handleDisabled()}`}
       disabled={status != "No Winner Yet"}
       onClick={() => {
         setTik(takeTurn(id));
