@@ -33,6 +33,9 @@ const Board = () => {
         )}
         {status != "No Winner Yet" && (
           <>
+            <p>
+              <span className="bold">Winner:</span> {status}
+            </p>
             <button
               className="reset-button"
               onClick={() => {
@@ -45,10 +48,6 @@ const Board = () => {
             >
               New Game
             </button>
-
-            <p>
-              <span className="bold">Winner:</span> {status}
-            </p>
           </>
         )}
       </div>
