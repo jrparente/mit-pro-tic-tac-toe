@@ -135,7 +135,8 @@ const checkForWinner = (gameState) => {
   }
   if (win0.length > 0) return "Player O";
   else if (winX.length > 0) return "Player X";
-  return "No Winner Yet";
+  else if (gameState.length == 9) return "It's a tie!";
+  else return "No Winner Yet";
 };
 // check if subset is in the set
 function isSuperset(set, subset) {
