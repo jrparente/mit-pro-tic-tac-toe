@@ -26,26 +26,31 @@ const Board = () => {
   return (
     <div className="container">
       <div className="info">
-        <p>
-          <span className="bold">Turn:</span> {playerTurn}
-        </p>
-        {status != "No Winner Yet" && (
-          <button
-            className="reset-button"
-            onClick={() => {
-              setGameState([]);
-              setPlayer(1);
-              document.querySelectorAll(".square").forEach((square) => {
-                square.innerHTML = "";
-              });
-            }}
-          >
-            New Game
-          </button>
+        {status === "No Winner Yet" && (
+          <p>
+            <span className="bold">Turn:</span> {playerTurn}
+          </p>
         )}
-        <p>
-          <span className="bold">Winner:</span> {status}
-        </p>
+        {status != "No Winner Yet" && (
+          <>
+            <button
+              className="reset-button"
+              onClick={() => {
+                setGameState([]);
+                setPlayer(1);
+                document.querySelectorAll(".square").forEach((square) => {
+                  square.innerHTML = "";
+                });
+              }}
+            >
+              New Game
+            </button>
+
+            <p>
+              <span className="bold">Winner:</span> {status}
+            </p>
+          </>
+        )}
       </div>
       <div className="game-board">
         <div className="grid-row">
